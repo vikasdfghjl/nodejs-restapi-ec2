@@ -1,49 +1,44 @@
-# This workflow will do a clean installation of node dependencies, 
-#cache/restore them, build the source code and run tests across different versions of node
-name: Node.js CI
+# # This workflow will do a clean installation of node dependencies, 
+# #cache/restore them, build the source code and run tests across different versions of node
+# name: Node.js CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-jobs:
-  build:
-    runs-on: self-hosted
+# jobs:
+#   build:
+#     runs-on: self-hosted
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+#     strategy:
+#       matrix:
+#         node-version: [18.x]
 
-    steps:
-    # checking out the repository
-    - name: Checkout code
-      uses: actions/checkout@v4
+#     steps:
+#     # checking out the repository
+#     - name: Checkout code
+#       uses: actions/checkout@v4
 
-    # setting up node.js
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # installing dependencies
-    - name: Install Dependencies
-      run: npm ci
-    # generating .env file from GitHub secrets
-    - name: Generate .env File
-      run: |
-        touch .env
-        echo "${{secrets.PROD_ENV_FILE}}" > .env
-    # installing pm2 to restart the app after the deployment is finished
-    - name: Install PM2 and start
-      run: npm i -g pm2
-    - run: pwd
-    #- run: pm2 start server.js --name=backend-api
-    - name: restarting app to apply updates 
-      run: pm2 restart backend-api
-    # deleting the .env file after the job is done, so it doesn't persist in GitHub repository
-    #- name: Clean up .env file
-     #always() will run the step even if the previous step failed
-     # if: ${{ always() }}
-     # run: rm .env
+#     # setting up node.js
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     # installing dependencies
+#     - name: Install Dependencies
+#       run: npm ci
+#     # generating .env file from GitHub secrets
+#     - name: Generate .env File
+#       run: |
+#         touch .env
+#         echo "${{secrets.PROD_ENV_FILE}}" > .env
+#     # installing pm2 to restart the app after the deployment is finished
+#     - name: Install PM2 and start
+#       run: npm i -g pm2
+#     - run: pwd
+#     #- run: pm2 start server.js --name=backend-api
+#     - name: restarting app to apply updates 
+#       run: pm2 restart backend-api
