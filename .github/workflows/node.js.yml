@@ -39,7 +39,7 @@ jobs:
     - name: Install PM2 and start
       run: npm i -g pm2
     - name: restarting app to apply updates 
-      run: pm2 restart backend-api
+      run: pm2 restart backend-api --update-env
     # deleting the .env file after the job is done, so it doesn't persist in GitHub repository
     - name: Clean up .env file
     # always() will run the step even if the previous step failed
