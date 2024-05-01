@@ -43,7 +43,7 @@ jobs:
     - name: restarting app to apply updates 
       run: pm2 restart backend-api
     # deleting the .env file after the job is done, so it doesn't persist in GitHub repository
-    #- name: Clean up .env file
-    # always() will run the step even if the previous step failed
-    #  if: ${{ always() }}
-    #  run: rm .env
+    - name: Clean up .env file
+     #always() will run the step even if the previous step failed
+      if: ${{ always() }}
+      run: rm .env
