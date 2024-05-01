@@ -38,6 +38,7 @@ jobs:
     # installing pm2 to restart the app after the deployment is finished
     - name: Install PM2 and start
       run: npm i -g pm2
+    - run: pwd
     - name: restarting app to apply updates 
       run: pm2 restart backend-api --update-env
     # deleting the .env file after the job is done, so it doesn't persist in GitHub repository
