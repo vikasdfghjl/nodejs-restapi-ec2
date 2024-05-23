@@ -1,12 +1,14 @@
 services:
   mongodb:
     image: mongo:latest
-    restart: always
+    container_name: mongodb_server
     ports:
       - "27017:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - /home/ubuntu/mydata:/data/db
 
   backend:
     build: .
@@ -16,3 +18,7 @@ services:
       - MONGODB_URI=mongodb://admin:password@mongodb:27017/demoDB
     depends_on:
       - mongodb
+
+volumes:
+  mydata:
+
