@@ -1,6 +1,5 @@
-networks:
-  my-network:
-    driver: bridge
+version: '3.8'
+
 services:
   mongodb:
     image: mongo:latest
@@ -8,21 +7,28 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
     volumes:
-      - /home/ubuntu/mydata:/data/db
+      - mydata:/data/db  # Use the named volume directly
     networks:
-        - my-network
+      - my-network
+    ports:
+      - '27017:27017' #Expose mongodb to outside docker container (not recommanded)
+
 
   backend:
     build: .
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/demoDB
+      - MONGO_URI=mongodb://mongodb:27017/demoDB 
+       # Update connection string to use service name
     depends_on:
       - mongodb
     networks:
       - my-network
 
-volumes:
-  mydata:
+networks:
+  my-network:
+    driver: bridge
 
+volumes:
+  mydata:  # Named volume for MongoDB data
