@@ -28,6 +28,10 @@ app.use("/api/products", (req, res) => {
   })
 });
 
+app.get("/", (req, res)=>{
+  res.send("Server is Up and Running !!")
+})
+
 app.use(errorHandler);
 
 const server = app.listen(port, () =>
