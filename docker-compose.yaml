@@ -10,7 +10,7 @@ services:
       - MONGO_INITDB_ROOT=/data/db
     user: "999:999"
     volumes:
-      - /mydata:/data/db  
+      - /home/ubuntu/mydata:/data/db  
     networks:
       - my-network
     ports:
