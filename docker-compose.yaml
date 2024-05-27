@@ -6,6 +6,9 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT=/data/db
+    user: "999:999"
     volumes:
       - /mydata:/data/db  
     networks:
